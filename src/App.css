@@ -54,6 +54,7 @@
 
 .letter-button:hover {
   background-color: rgb(79, 79, 79);
+  cursor: pointer;
 }
 
 .no-margin {
@@ -74,4 +75,24 @@
 
 .green {
   background-color: green;
+}
+
+.restart-button {
+  background-color: rgba(79, 79, 79);
+  color: white;
+  width: 100px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  font-size: large;
+  font-weight: bolder;
+}
+
+.restart-button:hover {
+  background-color: rgba(79, 79, 79, .600);
+}
+
+.confetti-position {
+  margin-left: 500px;
+  margin-right: auto;
 }
