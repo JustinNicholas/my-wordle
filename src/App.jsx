@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ReactDOM } from 'react';
+import { useRef } from 'react';
 
 import './App.css';
 
@@ -13,10 +14,11 @@ function App() {
   const [guessPhrase4, setGuessPhrase4] = useState([]);
   const [guessPhrase5, setGuessPhrase5] = useState([]);
   const [guessPhrase6, setGuessPhrase6] = useState([]);
+  const [isWinner, setIsWinner] = useState(false);
 
   let spaceNumber = 1;
   let letter = '';
-  // let currentGuess = 0;
+  let currentId = useRef(1);
   const [currentGuess, setCurrentGuess] = useState(0);
   const getters = [guessPhrase1, guessPhrase2, guessPhrase3, guessPhrase4, guessPhrase5, guessPhrase6];
   const setters = [setGuessPhrase1, setGuessPhrase2, setGuessPhrase3, setGuessPhrase4, setGuessPhrase5, setGuessPhrase6];
@@ -46,19 +48,64 @@ function App() {
   }
 
   const checkGuess = () => {
-    setCurrentGuess(currentGuess + 1);
-    console.log(currentGuess + 1);
+    if ( currentGetter.length < 5 ) {
+
+    } else {
+      let numCorrect = 0;
+      for ( let i=0; i<5; i++) {
+        if (keyPhrase.includes(currentGetter[i])) {
+          console.log('current id for class add orange', currentId.current);
+          let element = document.getElementById(currentId.current)
+          element.classList.add('orange')
+          let letterElement = document.getElementById(currentGetter[i])
+          letterElement.classList.add('orange')
+          numCorrect++;
+          console.log(numCorrect);
+        }
+        if( currentGetter[i] == keyPhrase[i] ){
+          console.log('current id for class add green', currentId.current);
+          let element = document.getElementById(currentId.current)
+          element.classList.add('green')
+          let letterElement = document.getElementById(currentGetter[i])
+          letterElement.classList.add('green')
+        } else {
+          let letterElement = document.getElementById(currentGetter[i])
+          letterElement.classList.add('dark')
+        }
+        if (numCorrect == 5) {
+          setIsWinner(true);
+          setTimeout(() => {
+            alert('WINNER!!!')
+          }, 100)
+        }
+        currentId.current ++;
+        console.log('current id is', currentId);
+      }
+
+      setCurrentGuess(currentGuess + 1);
+      console.log(currentGuess + 1);
+    }
   }
+
+  if(currentId.current>30 && isWinner == false){
+    return(
+      <div>
+        <h1>LOOOOOOOSER</h1>
+      </div>
+    )
+  } else {
+
+
 
   return (
     <div className="App">
       <header className="App-header">
         <br />
-        <h1 className='app-title'>Justin's Wordle</h1>
+        <h1 className='app-title'>Jordle</h1>
       </header>
       <main>
       <div className='row-1 guess-row'>
-          <div  className='letter-box' id='1'><h1 className='no-margin'>{guessPhrase1[0]}</h1></div>
+          <div className='letter-box' id='1'><h1 className='no-margin'>{guessPhrase1[0]}</h1></div>
           <div className='letter-box' id='2'><h1 className='no-margin'>{guessPhrase1[1]}</h1></div>
           <div className='letter-box' id='3'><h1 className='no-margin'>{guessPhrase1[2]}</h1></div>
           <div className='letter-box' id='4'><h1 className='no-margin'>{guessPhrase1[3]}</h1></div>
@@ -137,6 +184,7 @@ function App() {
       </main>
     </div>
   );
+}
 }
 
 export default App;
