@@ -5,7 +5,7 @@ import './App.css';
 
 function App() {
 
-  const keyPhrase = ['H', 'I', 'R', 'E', 'D'];
+  const keyPhrase = ['P', 'R', 'I', 'M', 'E'];
   
   const [guessPhrase1, setGuessPhrase1] = useState([]);
   const [guessPhrase2, setGuessPhrase2] = useState([]);
